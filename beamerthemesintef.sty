@@ -22,7 +22,6 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 % TODOs:
-% - remove top-right logo from title page
 % - make pages enumeration optional
 
 \ProvidesPackage{beamerthemesintef}[2021/11/02]
@@ -72,9 +71,11 @@
 }
 \footlinecolor{} % Default: no footline
 
+\pgfdeclareimage[width=0.09\paperwidth]{dotimage}{assets/transparent_placeholder}
 \pgfdeclareimage[width=0.09\paperwidth]{logo}{assets/logo_RGB}
 \pgfdeclareimage[width=0.09\paperwidth]{whitelogo}{assets/logo_RGB_negative}
 \newcommand{\@logo}{logo}
+\newcommand{\@dotimage}{dotimage}
 
 % Set colours
 % NOTE! Beamer colors should be set in the preamble. It often works fine in the 
@@ -149,8 +150,16 @@
 \newcommand{\course}[1]{\def\@courseLabel{#1}}
 \newcommand{\IDnumber}[1]{\def\@IDnumber{#1}}
 
+% Remove headline logo in title slide (replace it with a transparent image)
+\def\ps@navigation@titlepage{%
+  \setbeamertemplate{headline}{\hspace{0.06\textwidth}\pgfuseimage{\@dotimage}}
+  \@nameuse{ps@navigation}
+}
+
 % Define the title page
 \setbeamertemplate{title page}{%
+  \thispagestyle{navigation@titlepage}
+
   \vskip0pt plus 1filll%
   % Reposition the box in an inelegant way - but it works!
   \hspace{-12mm}
