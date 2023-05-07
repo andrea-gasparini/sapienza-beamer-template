@@ -4,6 +4,16 @@ This is an **unofficial** template to create slides with LaTeX beamer for Sapien
 
 The template is already available on Overleaf Gallery and can be directly used by clicking on "Open as Template" from [here](https://www.overleaf.com/latex/templates/sapienza-presentation/yyksmrskffhk).
 
+## Options
+
+* `noslidenumber`: disable slide numbering
+
+Example:
+
+```tex
+\usetheme[noslidenumber]{sintef}
+```
+
 ## Screenshots
 
 ### Title page
