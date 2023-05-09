@@ -21,14 +21,17 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-% TODOs:
-% - remove top-right logo from title page
-% - make pages enumeration optional
-
 \ProvidesPackage{beamerthemesintef}[2021/11/02]
 
 \RequirePackage{etoolbox}
 \RequirePackage{tikz}
+
+\newtoggle{noslidenumber}
+
+\@ifclassloaded{beamer}{
+  \DeclareOptionBeamer{noslidenumber}{\toggletrue{noslidenumber}}
+  \ProcessOptionsBeamer
+}{}
 
 % Force 16:9 aspect ratio
 \RequirePackage{geometry}
@@ -49,7 +52,9 @@
 % Define footline content
 \setbeamertemplate{footline}{%
   \begin{beamercolorbox}[wd=\textwidth,ht=5mm,dp=3mm,rightskip=1cm,leftskip=1cm]{footline}
-  \insertframenumber/\inserttotalframenumber
+  \iftoggle{noslidenumber}{}{
+    \insertframenumber/\inserttotalframenumber
+  }
   \ifstrempty{\@footlinepayoff}{}{%
     \usebeamerfont{footline}\hfill\@footlinepayoff
   }
@@ -151,7 +156,6 @@
 
 % Define the title page
 \setbeamertemplate{title page}{%
-  \vskip0pt plus 1filll%
   % Reposition the box in an inelegant way - but it works!
   \hspace{-12mm}
   \vspace{20mm}
@@ -203,7 +207,7 @@
       }
     }
   }
-  \begin{frame}%
+  \begin{frame}[plain,noframenumbering]%
   \titlepage%
   \end{frame}%
 \endgroup
